@@ -129,13 +129,12 @@ directions: List[List[int]] = [
 def find_possible_paths_BFS(
     data: List[List[str]],
     start: List[int],
-    score: int,
 ) -> int:
 
     visited: set = set()
     visited.add(tuple(start))
 
-    priority_queue: List[Tuple[int, List[int], int, int, List[int]]] = []  # (score, position, direction, path)
+    priority_queue: List[Tuple[int, List[int], int, List[int]]] = []  # (score, position, direction, path)
 
     heappush(priority_queue, (0, start, 0, []) )
 
@@ -159,21 +158,20 @@ def find_possible_paths_BFS(
                 visited.add( tuple([new_x, new_y]) )
 
     # if the queue is empty, we did not find a solution
-    return np.inf
+    return np.inf  # type: ignore
 
 
 def find_all_best_paths_BFS(
     data: List[List[str]],
     start: List[int],
-    score: int,
 ) -> List[Tuple[int, List[int]]]:
 
-    visited = {}  # {(x, y): best_score}
+    visited: Dict[Tuple[int, int], int]= {}  # {(x, y): best_score}
 
     # store the score and the path of the best paths found so far
     best_paths: List[Tuple[int, List[int]]] = []
 
-    priority_queue: List[Tuple[int, List[int], int, int, List[int]]] = []  # (score, position, direction, path)
+    priority_queue: List[Tuple[int, List[int], int, List[int]]] = []  # (score, position, direction, path)
 
     heappush(priority_queue, (0, start, 0, []) )
 
@@ -285,7 +283,6 @@ finish: List[int] = find_finish(data)
 score = find_possible_paths_BFS(
     data = data,
     start = starting_point,
-    score = 1,
 )
 
 print(f'{score = }')
@@ -295,7 +292,6 @@ print(f'{score = }')
 best_paths = find_all_best_paths_BFS(
     data = data,
     start = starting_point,
-    score = 1,
 )
 
 # print(f'{best_paths = }')
